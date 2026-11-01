@@ -1,6 +1,6 @@
 # Movie Search (React + Meilisearch)
 
-A modern movie search demo built with **Vite**, **React**, **Tailwind CSS**, and **Meilisearch Cloud**. Search ~32k movies with highlighting, genre filters, sorting, and pagination.
+A modern movie search demo built with **Vite**, **React**, **Tailwind CSS**, and **Meilisearch Cloud**. Search ~32k TMDB movies with IMDb ratings/regions, **rule-based smart queries** (no LLM), genre/region filters, sorting, and pagination.
 
 The original CDN HTML demos live in [`legacy/`](legacy/) for reference.
 
@@ -8,6 +8,10 @@ The original CDN HTML demos live in [`legacy/`](legacy/) for reference.
 
 - Node.js 20+ (for `npm run seed` with `--env-file=.env`)
 - A [Meilisearch Cloud](https://www.meilisearch.com/cloud) project (or any hosted Meilisearch instance)
+- IMDb dataset TSV files in the project root (for enrichment):
+  - `title.basics.tsv`
+  - `title.ratings.tsv`
+  - `title.akas.tsv`
 
 ## Setup
 
@@ -33,16 +37,19 @@ The original CDN HTML demos live in [`legacy/`](legacy/) for reference.
    | `MEILISEARCH_HOST` | Same host as above (seed script) |
    | `MEILISEARCH_MASTER_API_KEY` | **Master** key — seed script only, never `VITE_` |
 
-3. **Seed the index** (first time, or after reset)
+3. **Build enriched movies + reindex** (after updating IMDb TSV files)
 
    ```bash
-   npm run seed
+   npm run reindex
    ```
 
-   Re-import all documents even if the index is non-empty:
+   This runs `build:movies` (merges TMDB `movies.json` with IMDb TSV → `movies-enriched.json`) then seeds Meilisearch with `--force`.
+
+   Steps separately:
 
    ```bash
-   node --env-file=.env scripts/seed-meilisearch.mjs --force
+   npm run build:movies   # ~5–15 min while streaming title.akas.tsv
+   npm run seed -- --force
    ```
 
 4. **Run the dev server**
@@ -53,6 +60,19 @@ The original CDN HTML demos live in [`legacy/`](legacy/) for reference.
 
 5. Open the URL shown in the terminal (usually `http://localhost:5173`).
 
+## Smart search (basic NLP, no LLM)
+
+The search bar parses keywords and applies filters/sort automatically:
+
+| Example query | Effect |
+|---------------|--------|
+| `best indian action movie` | Genre Action, region India, sort by rating |
+| `top rated comedy` | Comedy + highest `vote_average` |
+| `latest horror` | Horror + newest release date |
+| `star wars action` | Text search “star wars” + Action filter |
+
+Logic lives in [`src/lib/parseNaturalQuery.ts`](src/lib/parseNaturalQuery.ts).
+
 ## Scripts
 
 | Command | Description |
@@ -60,7 +80,9 @@ The original CDN HTML demos live in [`legacy/`](legacy/) for reference.
 | `npm run dev` | Start Vite dev server |
 | `npm run build` | Production build |
 | `npm run preview` | Preview production build |
-| `npm run seed` | Apply index settings and import `movies.json` |
+| `npm run build:movies` | Merge IMDb TSV + TMDB → `movies-enriched.json` |
+| `npm run seed` | Apply index settings; import if index empty |
+| `npm run reindex` | `build:movies` + forced seed |
 
 ## Security
 
@@ -73,21 +95,21 @@ The original CDN HTML demos live in [`legacy/`](legacy/) for reference.
 The seed script configures:
 
 - **Searchable:** `title`, `overview`, `genres`
-- **Filterable:** `genres`
-- **Sortable:** `release_date`
+- **Filterable:** `genres`, `origin_regions`, `languages`
+- **Sortable:** `release_date`, `vote_average`, `num_votes`
 
 ## Data
 
-[`movies.json`](movies.json) is a TMDB-style dataset at the repo root (~31,944 documents).
+- [`movies.json`](movies.json) — TMDB-style base dataset (~31,944 docs)
+- `movies-enriched.json` — generated; adds IMDb match by title: ratings, regions, languages
+- IMDb TSV files are large (~4 GB total); keep locally, not committed
 
-Optional: set `MOVIES_JSON_PATH` in `.env` to point to another JSON file.
+Matching is by **normalized movie title** to IMDb `primaryTitle`; some TMDB titles may not match.
 
 ## Optional: local Meilisearch
-
-For local development without Cloud:
 
 ```bash
 docker run -d -p 7700:7700 -e MEILI_MASTER_KEY=masterKey getmeili/meilisearch:latest
 ```
 
-Use `http://127.0.0.1:7700` as host and the same keys in `.env`, then run `npm run seed`.
+Use `http://127.0.0.1:7700` in `.env`, then `npm run reindex`.

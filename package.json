@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "seed": "node --env-file=.env scripts/seed-meilisearch.mjs"
+    "build:movies": "node scripts/build-enriched-movies.mjs",
+    "seed": "node --env-file=.env scripts/seed-meilisearch.mjs",
+    "reindex": "npm run build:movies && npm run seed -- --force"
   },
   "dependencies": {
     "@meilisearch/instant-meilisearch": "^0.25.0",

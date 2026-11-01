@@ -1,5 +1,6 @@
 import type { Hit } from "instantsearch.js";
 import {
+  formatRating,
   formatReleaseYear,
   truncateOverview,
   type Movie,
@@ -11,6 +12,7 @@ type MovieHitProps = {
 
 export function MovieHit({ hit }: MovieHitProps) {
   const year = formatReleaseYear(hit.release_date);
+  const rating = formatRating(hit.vote_average);
   const overview = truncateOverview(hit.overview ?? "");
 
   return (
@@ -28,11 +30,18 @@ export function MovieHit({ hit }: MovieHitProps) {
             No poster
           </div>
         )}
-        {year && (
-          <span className="absolute right-2 top-2 rounded-md bg-black/70 px-2 py-0.5 text-xs font-medium backdrop-blur-sm">
-            {year}
-          </span>
-        )}
+        <div className="absolute right-2 top-2 flex flex-col items-end gap-1">
+          {rating && (
+            <span className="rounded-md bg-accent/90 px-2 py-0.5 text-xs font-semibold text-white backdrop-blur-sm">
+              ★ {rating}
+            </span>
+          )}
+          {year && (
+            <span className="rounded-md bg-black/70 px-2 py-0.5 text-xs font-medium backdrop-blur-sm">
+              {year}
+            </span>
+          )}
+        </div>
       </div>
       <div className="flex flex-1 flex-col gap-2 p-4">
         <h3

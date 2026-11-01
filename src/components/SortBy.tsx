@@ -9,6 +9,7 @@ export function SortBy({ indexName }: SortByProps) {
     <InstantSortBy
       items={[
         { label: "Relevance", value: indexName },
+        { label: "Top rated", value: `${indexName}:vote_average:desc` },
         { label: "Newest first", value: `${indexName}:release_date:desc` },
         { label: "Oldest first", value: `${indexName}:release_date:asc` },
       ]}

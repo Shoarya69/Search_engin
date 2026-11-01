@@ -1,9 +1,18 @@
 import { SearchBox as InstantSearchBox } from "react-instantsearch";
 
-export function SearchBox() {
+type SearchBoxProps = {
+  queryHook?: (query: string, search: (value: string) => void) => void;
+  placeholder?: string;
+};
+
+export function SearchBox({
+  queryHook,
+  placeholder = "Search movies by title, plot, or genre…",
+}: SearchBoxProps) {
   return (
     <InstantSearchBox
-      placeholder="Search movies by title, plot, or genre…"
+      queryHook={queryHook}
+      placeholder={placeholder}
       classNames={{
         root: "w-full",
         form: "relative",

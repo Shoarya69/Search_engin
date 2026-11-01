@@ -5,6 +5,11 @@ export type Movie = {
   genres: string[];
   poster: string;
   release_date: number;
+  imdb_id?: string | null;
+  vote_average?: number;
+  num_votes?: number;
+  origin_regions?: string[];
+  languages?: string[];
 };
 
 export function formatReleaseYear(releaseDate: number | undefined): string | null {
@@ -22,4 +27,9 @@ export function formatReleaseYear(releaseDate: number | undefined): string | nul
 export function truncateOverview(text: string, maxLength = 160): string {
   if (text.length <= maxLength) return text;
   return `${text.slice(0, maxLength).trimEnd()}…`;
+}
+
+export function formatRating(voteAverage: number | undefined): string | null {
+  if (voteAverage == null || voteAverage <= 0) return null;
+  return voteAverage.toFixed(1);
 }

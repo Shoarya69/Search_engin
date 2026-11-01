@@ -4,4 +4,9 @@ dist-ssr
 *.local
 .env
 .env.local
+movies-enriched.json
 .DS_Store
+
+
+.tsv
+*.tsv

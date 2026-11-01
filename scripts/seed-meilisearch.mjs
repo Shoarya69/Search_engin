@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { MeiliSearch } from "meilisearch";
 
@@ -7,10 +7,8 @@ const BATCH_SIZE = 1500;
 const host = process.env.MEILISEARCH_HOST?.trim();
 const apiKey = process.env.MEILISEARCH_MASTER_API_KEY?.trim();
 const indexName = process.env.MEILISEARCH_INDEX_NAME?.trim() || "movies";
-const moviesPath = resolve(
-  process.cwd(),
-  process.env.MOVIES_JSON_PATH?.trim() || "./movies.json",
-);
+const enrichedPath = resolve(process.cwd(), "movies-enriched.json");
+const defaultMoviesPath = resolve(process.cwd(), "movies.json");
 const forceReimport = process.argv.includes("--force");
 
 function requireEnv(name, value) {
@@ -23,13 +21,25 @@ function requireEnv(name, value) {
 requireEnv("MEILISEARCH_HOST", host);
 requireEnv("MEILISEARCH_MASTER_API_KEY", apiKey);
 
+async function resolveMoviesPath() {
+  if (process.env.MOVIES_JSON_PATH?.trim()) {
+    return resolve(process.cwd(), process.env.MOVIES_JSON_PATH.trim());
+  }
+  try {
+    await access(enrichedPath);
+    return enrichedPath;
+  } catch {
+    return defaultMoviesPath;
+  }
+}
+
 const client = new MeiliSearch({ host, apiKey });
 const index = client.index(indexName);
 
 const indexSettings = {
   searchableAttributes: ["title", "overview", "genres"],
-  filterableAttributes: ["genres"],
-  sortableAttributes: ["release_date"],
+  filterableAttributes: ["genres", "origin_regions", "languages"],
+  sortableAttributes: ["release_date", "vote_average", "num_votes"],
   displayedAttributes: [
     "id",
     "title",
@@ -37,6 +47,11 @@ const indexSettings = {
     "genres",
     "poster",
     "release_date",
+    "imdb_id",
+    "vote_average",
+    "num_votes",
+    "origin_regions",
+    "languages",
   ],
 };
 
@@ -52,6 +67,8 @@ async function waitForTask(taskUid) {
 }
 
 async function main() {
+  const moviesPath = await resolveMoviesPath();
+
   console.log(`Index: ${indexName}`);
   console.log(`Host: ${host}`);
 
@@ -65,7 +82,9 @@ async function main() {
     console.log(
       `Index already has ${stats.numberOfDocuments.toLocaleString()} documents.`,
     );
-    console.log("Skipping import. Pass --force to re-import all movies.");
+    console.log(
+      "Skipping import. Run: npm run build:movies && npm run seed -- --force",
+    );
     return;
   }
 
@@ -73,7 +92,7 @@ async function main() {
   const raw = await readFile(moviesPath, "utf8");
   const movies = JSON.parse(raw);
   if (!Array.isArray(movies)) {
-    throw new Error("movies.json must be a JSON array");
+    throw new Error("Movies JSON must be an array");
   }
 
   console.log(`Importing ${movies.length.toLocaleString()} documents…`);
