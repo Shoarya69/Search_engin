@@ -48,7 +48,7 @@ export function SortBy({
       value={currentRefinement}
       onChange={(event) => refine(event.target.value)}
       aria-label="Sort results"
-      className="cursor-pointer appearance-none rounded-lg border border-border bg-surface-elevated py-2 pl-3 pr-9 text-sm text-white outline-none focus:border-accent focus:ring-2 focus:ring-accent/30"
+      className="cursor-pointer appearance-none rounded-lg border border-border bg-surface-elevated py-2 pl-3 pr-9 text-sm text-ink outline-none focus:border-accent focus:ring-2 focus:ring-accent/30"
     >
       {options.map((option) => (
         <option key={option.value} value={option.value}>

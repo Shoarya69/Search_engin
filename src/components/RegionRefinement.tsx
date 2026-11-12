@@ -33,7 +33,7 @@ export function RegionRefinement() {
           list: "max-h-48 space-y-0.5 overflow-y-auto pr-1",
           item: "flex items-center",
           label:
-            "flex w-full cursor-pointer items-center gap-2.5 rounded-lg px-2 py-1.5 text-sm text-text-muted transition hover:bg-surface-elevated hover:text-white",
+            "flex w-full cursor-pointer items-center gap-2.5 rounded-lg px-2 py-1.5 text-sm text-text-muted transition hover:bg-surface-elevated hover:text-ink",
           checkbox:
             "h-4 w-4 shrink-0 rounded border-border bg-surface accent-accent",
           labelText: "truncate",

@@ -123,7 +123,7 @@ export function SmartSearchBox(props: SmartSearchBoxProps) {
 
   const placeholder =
     props.env.dataProfile === "catalog"
-      ? "Try: laptop shop in Jodhpur Rajasthan…"
+      ? "Search a product, business, or city…"
       : "Try: best indian action movie, top rated comedy…";
 
   return (

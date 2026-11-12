@@ -62,9 +62,9 @@ export function SearchExperience({ env }: SearchExperienceProps) {
           </div>
           <QueryIntentChips parsed={parsed} nlpMode={env.nlpMode} />
           <p className="text-xs text-text-muted">
-            Hybrid NLP: <code className="text-white">{env.nlpMode}</code> (
-            rules + optional GLiNER). Search engine:{" "}
-            <code className="text-white">{env.engine}</code>.
+            {isCatalog
+              ? "Search a product, shop, or city. Results are businesses. Open one to see its products."
+              : `Hybrid NLP: ${env.nlpMode}. Search engine: ${env.engine}.`}
           </p>
         </div>
 

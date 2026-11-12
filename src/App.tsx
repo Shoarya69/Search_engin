@@ -13,7 +13,10 @@ function App() {
   }
 
   return (
-    <AppShell engine={validation.env.engine}>
+    <AppShell
+      engine={validation.env.engine}
+      dataProfile={validation.env.dataProfile}
+    >
       <SearchExperience env={validation.env} />
     </AppShell>
   );

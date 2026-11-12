@@ -23,7 +23,7 @@ export function QueryIntentChips({ parsed, nlpMode }: QueryIntentChipsProps) {
       {parsed.chips.map((chip) => (
         <span
           key={chip}
-          className="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-0.5 text-xs text-white"
+          className="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-0.5 text-xs text-ink"
         >
           {chip}
         </span>

@@ -3,7 +3,7 @@ services:
     build: .
     image: catalog-search:latest
     ports:
-      - "${APP_PORT:-8080}:80"
+      - "127.0.0.1:${APP_PORT:-8080}:80"
     environment:
       MEILI_MASTER_KEY: ${MEILI_MASTER_KEY:-meili-demo-master-key}
       DATA_PROFILE: ${DATA_PROFILE:-catalog}

@@ -2,18 +2,19 @@
 
 @theme {
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
-  --color-surface: #0f1419;
-  --color-surface-elevated: #1a222d;
-  --color-border: #2a3544;
-  --color-accent: #e50914;
-  --color-accent-muted: #b20710;
-  --color-text-muted: #8b9cb3;
+  --color-surface: #f3f5f8;
+  --color-surface-elevated: #ffffff;
+  --color-border: #e3e8ef;
+  --color-accent: #0f6e56;
+  --color-accent-muted: #0c5744;
+  --color-ink: #142033;
+  --color-text-muted: #5c6b7e;
 }
 
 body {
-  @apply min-h-screen bg-surface font-sans text-white antialiased;
+  @apply min-h-screen bg-surface font-sans text-ink antialiased;
 }
 
 mark {
-  @apply rounded bg-accent/30 px-0.5 text-white;
+  @apply rounded bg-amber-200 px-0.5 text-ink;
 }

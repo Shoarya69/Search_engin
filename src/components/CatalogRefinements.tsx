@@ -20,7 +20,7 @@ function FacetList({
         classNames={{
           list: "max-h-40 space-y-0.5 overflow-y-auto",
           label:
-            "flex w-full cursor-pointer items-center gap-2 rounded-lg px-2 py-1 text-sm text-text-muted hover:bg-surface-elevated hover:text-white",
+            "flex w-full cursor-pointer items-center gap-2 rounded-lg px-2 py-1 text-sm text-text-muted hover:bg-surface-elevated hover:text-ink",
           checkbox: "accent-accent",
           count: "ml-auto text-xs tabular-nums text-text-muted",
         }}

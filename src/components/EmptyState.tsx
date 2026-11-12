@@ -18,12 +18,12 @@ export function EmptyState({ dataProfile = "movies" }: EmptyStateProps) {
 
   return (
     <div className="col-span-full rounded-2xl border border-dashed border-border bg-surface-elevated/50 px-6 py-16 text-center">
-      <p className="text-lg font-medium text-white">No {label} found</p>
+      <p className="text-lg font-medium text-ink">No {label} found</p>
       <p className="mt-2 text-sm text-text-muted">
         {hasQuery || hasGenreFilter || hasCatalogFilter
           ? "Try a different search term or clear your filters."
           : dataProfile === "catalog"
-            ? "Start typing to search businesses."
+            ? "Start typing a product or business name."
             : "Start typing to search movies."}
       </p>
     </div>
