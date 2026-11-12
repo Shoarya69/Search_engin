@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+import re
 import time
 from functools import lru_cache
 from typing import Any
@@ -34,6 +35,61 @@ LABELS = [
 ]
 
 THRESHOLD = float(os.getenv("GLINER_THRESHOLD", "0.4"))
+
+# category_labels in marwadihub-data.json. These are categories, not products.
+CATEGORIES = (
+    "Electronics",
+    "Consumer Electronics",
+    "Computer",
+    "Laptops",
+    "Headphones & Speakers",
+    "Mobiles",
+    "Air Conditioners",
+    "Bluetooth Speakers",
+    "Wireless earbuds",
+    "IT Hardware",
+    "Home Appliances",
+    "Gifts & Retail",
+    "IT Services",
+    "Software",
+    "Networking",
+    "CCTV",
+    "Healthcare",
+    "Hospitals",
+    "Food & Dining",
+    "Restaurants",
+    "Real Estate",
+    "Property Developers",
+    "Media Services",
+    "Industrial Electronics",
+    "Semiconductors",
+    "Cables",
+    "Audio-Video",
+    "IT Products",
+    "Toys",
+    "Wholesale",
+)
+
+
+def _norm(value: str) -> str:
+    text = value.lower().replace("&", " and ")
+    text = re.sub(r"[^a-z0-9]+", " ", text).strip()
+    return re.sub(r"\b([a-z]{4,})s\b", r"\1", text)
+
+
+_CATEGORY_BY_NORM = {_norm(label): label for label in CATEGORIES}
+
+
+def canonical_category(text: str) -> str | None:
+    return _CATEGORY_BY_NORM.get(_norm(text))
+
+
+def correct_entity(text: str, label: str) -> tuple[str, str]:
+    """GLiNER often tags a category span as product. Keep the catalog name."""
+    category = canonical_category(text)
+    if category and label in {"product", "product category", "service"}:
+        return category, "product category"
+    return text, label
 
 
 class ParseRequest(BaseModel):
@@ -74,14 +130,16 @@ def parse(req: ParseRequest) -> ParseResponse:
     raw = model.predict_entities(req.query, LABELS, threshold=THRESHOLD)
     infer_elapsed = time.perf_counter() - infer_start
 
-    entities = [
-        EntityOut(
-            text=str(e["text"]),
-            label=str(e["label"]),
-            score=round(float(e["score"]), 3),
+    entities: list[EntityOut] = []
+    for entity in raw:
+        text, label = correct_entity(str(entity["text"]), str(entity["label"]))
+        entities.append(
+            EntityOut(
+                text=text,
+                label=label,
+                score=round(float(entity["score"]), 3),
+            )
         )
-        for e in raw
-    ]
 
     return ParseResponse(
         query=req.query,

@@ -1,3 +1,4 @@
+import { matchCategory } from "./catalogCategories";
 import type { NerEntity } from "./types";
 
 const LABEL_TO_FACET: Record<string, string> = {
@@ -30,6 +31,20 @@ export function mapGlinerToFacets(
     const facet = LABEL_TO_FACET[entity.label.toLowerCase()] ?? "_search";
     const value = entity.text.trim();
     if (!value) continue;
+
+    const category = matchCategory(value);
+    const rawLabel = entity.label.toLowerCase();
+    if (
+      category &&
+      (rawLabel === "product" ||
+        rawLabel === "product category" ||
+        rawLabel === "service" ||
+        facet === "category_labels")
+    ) {
+      facetFilters.push([`category_labels:${category}`]);
+      chips.push(`product category: ${category}`);
+      continue;
+    }
 
     if (facet === "_ignore") {
       chips.push(`Price: ${value}`);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Configure, InstantSearch } from "react-instantsearch";
 import type { SearchClient } from "instantsearch.js";
 import type { ClientEnv } from "../config/env";
@@ -26,7 +26,11 @@ const emptyParse = (): SemanticSearchParse => ({
 });
 
 export function SearchExperience({ env }: SearchExperienceProps) {
-  const { searchClient } = createSearchClient(env);
+  // A new client on each render makes InstantSearch search again, which retriggers NLP.
+  const searchClient = useMemo(
+    () => createSearchClient(env).searchClient,
+    [env],
+  );
   const [parsed, setParsed] = useState<SemanticSearchParse>(emptyParse);
   const isCatalog = env.dataProfile === "catalog";
 
@@ -54,22 +58,18 @@ export function SearchExperience({ env }: SearchExperienceProps) {
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
-            <SmartSearchBox
-              env={env}
-              indexName={env.indexName}
-              onParsedChange={setParsed}
-            />
+            <SmartSearchBox env={env} onParsedChange={setParsed} />
           </div>
           <QueryIntentChips parsed={parsed} nlpMode={env.nlpMode} />
           <p className="text-xs text-text-muted">
             {isCatalog
-              ? "Search a product, shop, or city. Results are businesses. Open one to see its products."
-              : `Hybrid NLP: ${env.nlpMode}. Search engine: ${env.engine}.`}
+              ? "Meilisearch starts after 3 words. Press Enter to run NLP and refresh the results. Open a business to see its products."
+              : "Search starts after 3 words. Press Enter to run NLP."}
           </p>
         </div>
 
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-10">
-          <div className="hidden w-full shrink-0 lg:block lg:w-56 xl:w-64">
+          <div className="w-full shrink-0 lg:w-56 xl:w-64">
             {isCatalog ? (
               <CatalogRefinements />
             ) : (
@@ -82,21 +82,6 @@ export function SearchExperience({ env }: SearchExperienceProps) {
 
           <div className="min-w-0 flex-1 space-y-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div className="lg:hidden">
-                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
-                  Filters
-                </p>
-                <div className="max-h-64 overflow-y-auto rounded-xl border border-border bg-surface-elevated p-3">
-                  {isCatalog ? (
-                    <CatalogRefinements />
-                  ) : (
-                    <>
-                      <GenreRefinement />
-                      <RegionRefinement />
-                    </>
-                  )}
-                </div>
-              </div>
               <div className="flex items-center gap-2 sm:ml-auto">
                 <span className="text-sm text-text-muted">Sort</span>
                 <SortBy

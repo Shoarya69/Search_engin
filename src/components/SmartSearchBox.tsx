@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Configure, useSearchBox } from "react-instantsearch";
 import type { ClientEnv } from "../config/env";
 import { resolveQuery } from "../lib/nlp/resolveQuery";
@@ -7,129 +7,105 @@ import { SearchBox } from "./SearchBox";
 
 type SmartSearchBoxProps = {
   env: ClientEnv;
-  indexName: string;
   onParsedChange?: (parsed: SemanticSearchParse) => void;
 };
 
-function NaturalLanguageLayer({
-  env,
-  onParsedChange,
-  onSearchText,
-}: SmartSearchBoxProps & {
-  onSearchText: (engineText: string, rawQuery: string) => void;
-}) {
-  const { query } = useSearchBox();
-  const [parsed, setParsed] = useState<SemanticSearchParse>({
-    searchText: "",
-    facetFilters: [],
-    sort: "relevance",
-    chips: [],
-    sources: [],
-  });
-  const abortRef = useRef<AbortController | null>(null);
-  const lastResolvedQueryRef = useRef<string | null>(null);
-  const onParsedChangeRef = useRef(onParsedChange);
-  const onSearchTextRef = useRef(onSearchText);
-  onParsedChangeRef.current = onParsedChange;
-  onSearchTextRef.current = onSearchText;
+const MIN_WORDS = 3;
+const WORD_DEBOUNCE_MS = 400;
 
-  useEffect(() => {
-    lastResolvedQueryRef.current = null;
-  }, [env.nlpMode, env.dataProfile, env.nlpApiUrl]);
+const EMPTY_PARSE: SemanticSearchParse = {
+  searchText: "",
+  facetFilters: [],
+  sort: "relevance",
+  chips: [],
+  sources: [],
+};
+
+function wordCount(value: string): number {
+  return value.trim().split(/\s+/).filter(Boolean).length;
+}
+
+export function SmartSearchBox({ env, onParsedChange }: SmartSearchBoxProps) {
+  const { refine, clear } = useSearchBox();
+  const [text, setText] = useState("");
+  const [parsed, setParsed] = useState<SemanticSearchParse>(EMPTY_PARSE);
+  const debounceRef = useRef<number | null>(null);
+  const requestRef = useRef(0);
+  const onParsedChangeRef = useRef(onParsedChange);
+  onParsedChangeRef.current = onParsedChange;
 
   useEffect(() => {
     onParsedChangeRef.current?.(parsed);
   }, [parsed]);
 
   useEffect(() => {
-    const trimmed = query.trim();
-    if (!trimmed) {
-      lastResolvedQueryRef.current = null;
-      setParsed({
-        searchText: "",
-        facetFilters: [],
-        sort: "relevance",
-        chips: [],
-        sources: [],
-      });
-      onSearchTextRef.current("", "");
-      return;
-    }
-
-    if (lastResolvedQueryRef.current === trimmed) {
-      return;
-    }
-
-    abortRef.current?.abort();
-    const controller = new AbortController();
-    abortRef.current = controller;
-
-    const timer = window.setTimeout(() => {
-      void resolveQuery(trimmed, {
-        mode: env.nlpMode,
-        profile: env.dataProfile,
-        glinerApiUrl:
-          env.nlpMode === "rules" ? undefined : env.nlpApiUrl,
-        signal: controller.signal,
-      }).then((result) => {
-        if (controller.signal.aborted) return;
-        if (query.trim() !== trimmed) return;
-        lastResolvedQueryRef.current = trimmed;
-        setParsed(result);
-        const engineText = result.searchText.trim() || trimmed;
-        onSearchTextRef.current(engineText, trimmed);
-      });
-    }, env.nlpMode === "rules" ? 0 : 350);
-
     return () => {
-      window.clearTimeout(timer);
-      controller.abort();
+      if (debounceRef.current != null) window.clearTimeout(debounceRef.current);
     };
-  }, [query, env.nlpMode, env.dataProfile, env.nlpApiUrl]);
+  }, []);
+
+  function cancelDebounce() {
+    if (debounceRef.current != null) {
+      window.clearTimeout(debounceRef.current);
+      debounceRef.current = null;
+    }
+  }
+
+  function onValueChange(value: string) {
+    setText(value);
+    cancelDebounce();
+    requestRef.current += 1;
+    setParsed(EMPTY_PARSE);
+
+    const trimmed = value.trim();
+    if (!trimmed) {
+      clear();
+      return;
+    }
+    if (wordCount(trimmed) < MIN_WORDS) return;
+
+    debounceRef.current = window.setTimeout(() => {
+      refine(trimmed);
+    }, WORD_DEBOUNCE_MS);
+  }
+
+  async function onSubmit() {
+    cancelDebounce();
+    const trimmed = text.trim();
+    if (!trimmed) {
+      clear();
+      setParsed(EMPTY_PARSE);
+      return;
+    }
+
+    const requestId = ++requestRef.current;
+    const result = await resolveQuery(trimmed, {
+      mode: env.nlpMode,
+      profile: env.dataProfile,
+      glinerApiUrl: env.nlpMode === "rules" ? undefined : env.nlpApiUrl,
+    });
+    if (requestId !== requestRef.current) return;
+
+    setParsed(result);
+    refine((result.searchText || trimmed).trim());
+  }
+
+  const placeholder =
+    env.dataProfile === "catalog"
+      ? "Type 3 words, or press Enter…"
+      : "Type 3 words, or press Enter…";
 
   return (
     <>
       <Configure facetFilters={parsed.facetFilters} />
-    </>
-  );
-}
-
-export function SmartSearchBox(props: SmartSearchBoxProps) {
-  const searchTextRef = useRef("");
-  const nlpReadyForRef = useRef<string | null>(null);
-
-  const handleNlpSearchText = useCallback(
-    (engineText: string, rawQuery: string) => {
-      searchTextRef.current = engineText;
-      nlpReadyForRef.current = rawQuery;
-    },
-    [],
-  );
-
-  const queryHook = useCallback((q: string, search: (value: string) => void) => {
-    const trimmed = q.trim();
-    if (!trimmed) {
-      searchTextRef.current = "";
-      nlpReadyForRef.current = null;
-      search("");
-      return;
-    }
-    if (nlpReadyForRef.current === trimmed) {
-      search(searchTextRef.current || trimmed);
-      return;
-    }
-    search(trimmed);
-  }, []);
-
-  const placeholder =
-    props.env.dataProfile === "catalog"
-      ? "Search a product, business, or city…"
-      : "Try: best indian action movie, top rated comedy…";
-
-  return (
-    <>
-      <NaturalLanguageLayer {...props} onSearchText={handleNlpSearchText} />
-      <SearchBox queryHook={queryHook} placeholder={placeholder} />
+      <SearchBox
+        value={text}
+        onValueChange={onValueChange}
+        onSubmit={() => {
+          void onSubmit();
+        }}
+        placeholder={placeholder}
+      />
     </>
   );
 }

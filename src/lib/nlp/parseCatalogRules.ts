@@ -1,3 +1,7 @@
+import {
+  categoriesLongestFirst,
+  matchCategory,
+} from "./catalogCategories";
 import type { SemanticSearchParse } from "./types";
 
 const STOP = new Set([
@@ -56,6 +60,23 @@ export function parseCatalogRules(raw: string): SemanticSearchParse {
       chips.push(`state: ${proper}`);
       working = stripPhrase(working, state);
     }
+  }
+
+  for (const label of categoriesLongestFirst()) {
+    const canonical = matchCategory(label);
+    if (!canonical) continue;
+    const phrase = label.toLowerCase().replace(/&/g, " and ");
+    const padded = ` ${working.replace(/&/g, " and ").replace(/\s+/g, " ")} `;
+    const singular = phrase.replace(/\b([a-z]{4,})s\b/g, "$1");
+    const hit = padded.includes(` ${phrase} `)
+      ? phrase
+      : padded.includes(` ${singular} `)
+        ? singular
+        : null;
+    if (!hit) continue;
+    facetFilters.push([`category_labels:${canonical}`]);
+    chips.push(`product category: ${canonical}`);
+    working = stripPhrase(working.replace(/&/g, " and "), hit);
   }
 
   const searchText = working

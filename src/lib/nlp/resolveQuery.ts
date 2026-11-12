@@ -82,7 +82,7 @@ function hybridParse(
     searchText: rules.searchText.trim() || ner.searchText.trim() || "",
     facetFilters: mergeFacetFilters(rules.facetFilters, ner.facetFilters),
     sort: rules.sort !== "relevance" ? rules.sort : ner.sort,
-    chips: [...rules.chips, ...ner.chips],
+    chips: [...new Set([...rules.chips, ...ner.chips])],
     sources: ["rules", "gliner"],
   };
 }

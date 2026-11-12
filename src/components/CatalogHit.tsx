@@ -67,7 +67,9 @@ export function CatalogHit({ hit }: CatalogHitProps) {
         {location && <p className="text-sm text-text-muted">{location}</p>}
         <div className="mt-auto space-y-2">
           <p className="text-xs font-medium uppercase tracking-wide text-text-muted">
-            {products.length === 1 ? "1 product" : `${products.length} products`}
+            {products.length === 1
+              ? "1 category"
+              : `${products.length} categories`}
           </p>
           {preview.length > 0 && (
             <ul className="flex flex-wrap gap-1.5">
@@ -130,11 +132,11 @@ export function CatalogHit({ hit }: CatalogHitProps) {
             </div>
             <div className="overflow-y-auto px-5 py-4">
               <h3 className="text-xs font-semibold uppercase tracking-wide text-text-muted">
-                Products
+                Product categories
               </h3>
               {products.length === 0 ? (
                 <p className="mt-3 text-sm text-text-muted">
-                  This business has no products listed.
+                  This business has no product categories listed.
                 </p>
               ) : (
                 <ul className="mt-3 divide-y divide-border">
