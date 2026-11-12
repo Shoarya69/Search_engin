@@ -19,7 +19,7 @@ pick_port() {
       printf '%s\n' "$port"
       return 0
     fi
-    echo "127.0.0.1:${port} busy, next port"
+    echo "127.0.0.1:${port} busy, next port" >&2
     port=$((port + 1))
   done
   echo "No free port between ${1} and ${end}" >&2
