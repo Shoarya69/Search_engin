@@ -1,0 +1,15 @@
+node_modules
+dist
+dist-ssr
+.git
+.env
+.env.local
+*.local
+__pycache__
+**/__pycache__
+*.pyc
+.DS_Store
+*.tsv
+.tsv
+agent-transcripts
+terminals

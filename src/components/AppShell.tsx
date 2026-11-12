@@ -1,8 +1,16 @@
+import type { SearchEngine } from "../config/env";
+
 type AppShellProps = {
   children: React.ReactNode;
+  engine: SearchEngine;
 };
 
-export function AppShell({ children }: AppShellProps) {
+const ENGINE_LABEL: Record<SearchEngine, string> = {
+  meilisearch: "Meilisearch",
+  opensearch: "OpenSearch",
+};
+
+export function AppShell({ children, engine }: AppShellProps) {
   return (
     <div className="min-h-screen">
       <header className="border-b border-border bg-surface-elevated/80 backdrop-blur-sm">
@@ -18,7 +26,7 @@ export function AppShell({ children }: AppShellProps) {
               Movie Search
             </h1>
             <p className="text-xs text-text-muted sm:text-sm">
-              Powered by Meilisearch
+              Powered by {ENGINE_LABEL[engine]}
             </p>
           </div>
         </div>

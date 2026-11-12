@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Configure, InstantSearch } from "react-instantsearch";
 import type { SearchClient } from "instantsearch.js";
 import type { ClientEnv } from "../config/env";
-import type { ParsedNaturalQuery } from "../lib/parseNaturalQuery";
+import type { SemanticSearchParse } from "../lib/nlp/types";
 import { createSearchClient } from "../lib/searchClient";
 import { SmartSearchBox } from "./SmartSearchBox";
 import { QueryIntentChips } from "./QueryIntentChips";
 import { GenreRefinement } from "./GenreRefinement";
 import { RegionRefinement } from "./RegionRefinement";
+import { CatalogRefinements } from "./CatalogRefinements";
 import { SortBy } from "./SortBy";
 import { StatsAndPagination } from "./StatsAndPagination";
 import { HitsGrid } from "./HitsGrid";
@@ -16,20 +17,24 @@ type SearchExperienceProps = {
   env: ClientEnv;
 };
 
+const emptyParse = (): SemanticSearchParse => ({
+  searchText: "",
+  facetFilters: [],
+  sort: "relevance",
+  chips: [],
+  sources: [],
+});
+
 export function SearchExperience({ env }: SearchExperienceProps) {
   const { searchClient } = createSearchClient(env);
-  const [parsed, setParsed] = useState<ParsedNaturalQuery>(() => ({
-    searchText: "",
-    genres: [],
-    originRegions: [],
-    languages: [],
-    sort: "relevance",
-  }));
+  const [parsed, setParsed] = useState<SemanticSearchParse>(emptyParse);
+  const isCatalog = env.dataProfile === "catalog";
 
   return (
     <InstantSearch
       searchClient={searchClient as unknown as SearchClient}
       indexName={env.indexName}
+      future={{ preserveSharedStateOnUnmount: true }}
     >
       <Configure hitsPerPage={16} />
       <div className="space-y-8">
@@ -49,21 +54,30 @@ export function SearchExperience({ env }: SearchExperienceProps) {
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
-            <SmartSearchBox indexName={env.indexName} onParsedChange={setParsed} />
+            <SmartSearchBox
+              env={env}
+              indexName={env.indexName}
+              onParsedChange={setParsed}
+            />
           </div>
-          <QueryIntentChips parsed={parsed} />
+          <QueryIntentChips parsed={parsed} nlpMode={env.nlpMode} />
           <p className="text-xs text-text-muted">
-            Smart search (no LLM): try{" "}
-            <span className="text-white">best indian action movie</span>,{" "}
-            <span className="text-white">top rated comedy</span>, or{" "}
-            <span className="text-white">latest horror</span>.
+            Hybrid NLP: <code className="text-white">{env.nlpMode}</code> (
+            rules + optional GLiNER). Search engine:{" "}
+            <code className="text-white">{env.engine}</code>.
           </p>
         </div>
 
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-10">
           <div className="hidden w-full shrink-0 lg:block lg:w-56 xl:w-64">
-            <GenreRefinement />
-            <RegionRefinement />
+            {isCatalog ? (
+              <CatalogRefinements />
+            ) : (
+              <>
+                <GenreRefinement />
+                <RegionRefinement />
+              </>
+            )}
           </div>
 
           <div className="min-w-0 flex-1 space-y-6">
@@ -73,18 +87,28 @@ export function SearchExperience({ env }: SearchExperienceProps) {
                   Filters
                 </p>
                 <div className="max-h-64 overflow-y-auto rounded-xl border border-border bg-surface-elevated p-3">
-                  <GenreRefinement />
-                  <RegionRefinement />
+                  {isCatalog ? (
+                    <CatalogRefinements />
+                  ) : (
+                    <>
+                      <GenreRefinement />
+                      <RegionRefinement />
+                    </>
+                  )}
                 </div>
               </div>
               <div className="flex items-center gap-2 sm:ml-auto">
                 <span className="text-sm text-text-muted">Sort</span>
-                <SortBy indexName={env.indexName} />
+                <SortBy
+                  indexName={env.indexName}
+                  externalSort={parsed.sort}
+                  enabled={!isCatalog}
+                />
               </div>
             </div>
 
             <StatsAndPagination />
-            <HitsGrid />
+            <HitsGrid dataProfile={env.dataProfile} />
             <StatsAndPagination />
           </div>
         </div>

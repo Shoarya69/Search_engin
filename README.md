@@ -1,115 +1,104 @@
-# Movie Search (React + Meilisearch)
+# Movie Search (React + Meilisearch / OpenSearch)
 
-A modern movie search demo built with **Vite**, **React**, **Tailwind CSS**, and **Meilisearch Cloud**. Search ~32k TMDB movies with IMDb ratings/regions, **rule-based smart queries** (no LLM), genre/region filters, sorting, and pagination.
+Movie search demo with **Vite**, **React**, **Tailwind**, and **either Meilisearch or OpenSearch** — chosen via `.env`. Same UI: IMDb-enriched data, smart queries (no LLM), filters, sort, pagination.
 
-The original CDN HTML demos live in [`legacy/`](legacy/) for reference.
+Legacy CDN demos: [`legacy/`](legacy/).
 
-## Prerequisites
+## Choose search engine
 
-- Node.js 20+ (for `npm run seed` with `--env-file=.env`)
-- A [Meilisearch Cloud](https://www.meilisearch.com/cloud) project (or any hosted Meilisearch instance)
-- IMDb dataset TSV files in the project root (for enrichment):
-  - `title.basics.tsv`
-  - `title.ratings.tsv`
-  - `title.akas.tsv`
+Set **both** (same value):
+
+```env
+VITE_SEARCH_ENGINE=meilisearch   # or opensearch
+SEARCH_ENGINE=meilisearch        # used by npm run seed
+```
+
+| Engine | Frontend env | Seed env |
+|--------|--------------|----------|
+| **Meilisearch** | `VITE_MEILISEARCH_HOST`, `VITE_MEILISEARCH_SEARCH_API_KEY` | `MEILISEARCH_HOST`, `MEILISEARCH_MASTER_API_KEY` |
+| **OpenSearch** | `VITE_OPENSEARCH_URL`, auth (`VITE_OPENSEARCH_USERNAME`/`PASSWORD` or `VITE_OPENSEARCH_API_KEY`) | `OPENSEARCH_URL`, `OPENSEARCH_USERNAME`, `OPENSEARCH_PASSWORD` |
+
+Shared (optional): `VITE_SEARCH_INDEX_NAME` / `SEARCH_INDEX_NAME` (default `movies`).
+
+Copy [`.env.example`](.env.example) to `.env`.
+
+### OpenSearch dev proxy (CORS)
+
+For local OpenSearch, use in `.env`:
+
+```env
+VITE_SEARCH_ENGINE=opensearch
+VITE_OPENSEARCH_URL=/opensearch
+OPENSEARCH_URL=http://localhost:9200
+```
+
+Vite proxies `/opensearch` → `OPENSEARCH_URL`. For self-signed TLS: `OPENSEARCH_INSECURE=true`.
 
 ## Setup
 
-1. **Install dependencies**
+```bash
+npm install
+cp .env.example .env
+# edit .env for your engine
 
-   ```bash
-   npm install
-   ```
-
-2. **Configure environment**
-
-   ```bash
-   cp .env.example .env
-   ```
-
-   Edit `.env`:
-
-   | Variable | Purpose |
-   |----------|---------|
-   | `VITE_MEILISEARCH_HOST` | Instance URL (used by the React app) |
-   | `VITE_MEILISEARCH_SEARCH_API_KEY` | **Search-only** key for the browser |
-   | `VITE_MEILISEARCH_INDEX_NAME` | Index name (default: `movies`) |
-   | `MEILISEARCH_HOST` | Same host as above (seed script) |
-   | `MEILISEARCH_MASTER_API_KEY` | **Master** key — seed script only, never `VITE_` |
-
-3. **Build enriched movies + reindex** (after updating IMDb TSV files)
-
-   ```bash
-   npm run reindex
-   ```
-
-   This runs `build:movies` (merges TMDB `movies.json` with IMDb TSV → `movies-enriched.json`) then seeds Meilisearch with `--force`.
-
-   Steps separately:
-
-   ```bash
-   npm run build:movies   # ~5–15 min while streaming title.akas.tsv
-   npm run seed -- --force
-   ```
-
-4. **Run the dev server**
-
-   ```bash
-   npm run dev
-   ```
-
-5. Open the URL shown in the terminal (usually `http://localhost:5173`).
-
-## Smart search (basic NLP, no LLM)
-
-The search bar parses keywords and applies filters/sort automatically:
-
-| Example query | Effect |
-|---------------|--------|
-| `best indian action movie` | Genre Action, region India, sort by rating |
-| `top rated comedy` | Comedy + highest `vote_average` |
-| `latest horror` | Horror + newest release date |
-| `star wars action` | Text search “star wars” + Action filter |
-
-Logic lives in [`src/lib/parseNaturalQuery.ts`](src/lib/parseNaturalQuery.ts).
+npm run build:movies   # optional IMDb enrich → movies-enriched.json
+npm run seed -- --force  # routes to Meilisearch or OpenSearch seed
+npm run dev
+```
 
 ## Scripts
 
+### Index lifecycle (uses `SEARCH_ENGINE` from `.env`)
+
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start Vite dev server |
+| `npm run index:create` | Create / configure index (mappings or Meili settings) |
+| `npm run index:create -- --recreate` | Drop index first, then create |
+| `npm run index:status` | Ping cluster, doc count, schema summary |
+| `npm run index:test` | 4 smoke tests: browse, search, top rated, filters |
+| `npm run index:delete -- --force` | Delete index |
+| `npm run index:reset` | delete → create → seed `--force` (full rebuild) |
+
+Custom index name: set `SEARCH_INDEX_NAME=my_movies` in `.env` (same for seed + UI via `VITE_SEARCH_INDEX_NAME`).
+
+### Data & app
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Dev server (+ OpenSearch proxy when configured) |
 | `npm run build` | Production build |
-| `npm run preview` | Preview production build |
-| `npm run build:movies` | Merge IMDb TSV + TMDB → `movies-enriched.json` |
-| `npm run seed` | Apply index settings; import if index empty |
+| `npm run build:movies` | Merge IMDb TSV + TMDB JSON |
+| `npm run seed` | Import documents into active engine |
+| `npm run seed:meili` / `seed:opensearch` | Engine-specific seed |
 | `npm run reindex` | `build:movies` + forced seed |
+
+### Typical workflow
+
+```bash
+npm run index:status          # check connection
+npm run index:create          # empty index + schema
+npm run build:movies          # optional enrich
+npm run seed -- --force       # load documents
+npm run index:test            # verify search/sort/filter
+npm run dev                   # open UI
+```
+
+## Smart search
+
+Rule-based parsing in [`src/lib/parseNaturalQuery.ts`](src/lib/parseNaturalQuery.ts) — works with both engines via InstantSearch `facetFilters` + sort index names (`movies:vote_average:desc`).
+
+## Architecture
+
+- **Meilisearch:** `@meilisearch/instant-meilisearch`
+- **OpenSearch:** custom InstantSearch client in [`src/lib/opensearch/instantSearchClient.ts`](src/lib/opensearch/instantSearchClient.ts) (Elasticsearch `_search` + aggregations)
 
 ## Security
 
-- Never prefix `MEILISEARCH_MASTER_API_KEY` with `VITE_`. Vite exposes all `VITE_*` variables to the browser.
-- Use a search-restricted API key in `VITE_MEILISEARCH_SEARCH_API_KEY`.
-- Do not use the old `legacy/setup.html` pattern (master key in the browser).
-
-## Index settings
-
-The seed script configures:
-
-- **Searchable:** `title`, `overview`, `genres`
-- **Filterable:** `genres`, `origin_regions`, `languages`
-- **Sortable:** `release_date`, `vote_average`, `num_votes`
+- Never put Meilisearch **master** key in `VITE_*` variables.
+- OpenSearch credentials in the browser are for demos only; use read-only users or a backend proxy in production.
 
 ## Data
 
-- [`movies.json`](movies.json) — TMDB-style base dataset (~31,944 docs)
-- `movies-enriched.json` — generated; adds IMDb match by title: ratings, regions, languages
-- IMDb TSV files are large (~4 GB total); keep locally, not committed
-
-Matching is by **normalized movie title** to IMDb `primaryTitle`; some TMDB titles may not match.
-
-## Optional: local Meilisearch
-
-```bash
-docker run -d -p 7700:7700 -e MEILI_MASTER_KEY=masterKey getmeili/meilisearch:latest
-```
-
-Use `http://127.0.0.1:7700` in `.env`, then `npm run reindex`.
+- `movies.json` — base TMDB dataset
+- `movies-enriched.json` — generated (ratings, regions, languages)
+- IMDb `title.*.tsv` — local only, not committed

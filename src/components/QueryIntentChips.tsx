@@ -1,35 +1,26 @@
-import type { ParsedNaturalQuery } from "../lib/parseNaturalQuery";
-
-const SORT_LABELS: Record<ParsedNaturalQuery["sort"], string | null> = {
-  relevance: null,
-  "vote_average:desc": "Top rated",
-  "release_date:desc": "Newest",
-  "release_date:asc": "Oldest",
-};
+import type { SemanticSearchParse } from "../lib/nlp/types";
 
 type QueryIntentChipsProps = {
-  parsed: ParsedNaturalQuery;
+  parsed: SemanticSearchParse;
+  nlpMode: string;
 };
 
-export function QueryIntentChips({ parsed }: QueryIntentChipsProps) {
-  const chips: string[] = [];
-
-  for (const g of parsed.genres) chips.push(g);
-  for (const r of parsed.originRegions) {
-    chips.push(r === "IN" ? "India / Bollywood" : r);
-  }
-  for (const l of parsed.languages) chips.push(`Language: ${l}`);
-  const sortLabel = SORT_LABELS[parsed.sort];
-  if (sortLabel) chips.push(sortLabel);
-
-  if (chips.length === 0) return null;
+export function QueryIntentChips({ parsed, nlpMode }: QueryIntentChipsProps) {
+  if (parsed.chips.length === 0 && parsed.sources.length === 0) return null;
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="text-xs font-medium uppercase tracking-wide text-text-muted">
-        Understood as
-      </span>
-      {chips.map((chip) => (
+      {parsed.sources.length > 0 && (
+        <span className="rounded-full border border-border bg-surface px-2 py-0.5 text-[10px] uppercase tracking-wide text-text-muted">
+          NLP: {nlpMode} ({parsed.sources.join(" + ")})
+        </span>
+      )}
+      {parsed.chips.length > 0 && (
+        <span className="text-xs font-medium uppercase tracking-wide text-text-muted">
+          Understood as
+        </span>
+      )}
+      {parsed.chips.map((chip) => (
         <span
           key={chip}
           className="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-0.5 text-xs text-white"

@@ -147,6 +147,29 @@ export function parseNaturalQuery(raw: string): ParsedNaturalQuery {
   };
 }
 
+/** Algolia-style facet groups for InstantSearch (Meilisearch + OpenSearch adapters). */
+export function buildFacetFilters(parsed: ParsedNaturalQuery): string[][] {
+  const groups: string[][] = [];
+
+  for (const genre of parsed.genres) {
+    groups.push([`genres:${genre}`]);
+  }
+
+  if (parsed.originRegions.length === 1) {
+    groups.push([`origin_regions:${parsed.originRegions[0]}`]);
+  } else if (parsed.originRegions.length > 1) {
+    groups.push(parsed.originRegions.map((r) => `origin_regions:${r}`));
+  }
+
+  if (parsed.languages.length === 1) {
+    groups.push([`languages:${parsed.languages[0]}`]);
+  } else if (parsed.languages.length > 1) {
+    groups.push(parsed.languages.map((l) => `languages:${l}`));
+  }
+
+  return groups;
+}
+
 export function buildMeilisearchFilter(parsed: ParsedNaturalQuery): string | undefined {
   const clauses: string[] = [];
 

@@ -1,8 +1,14 @@
+import type { SearchEngine } from "../config/env";
+
 type EnvErrorProps = {
   missing: string[];
+  engine: SearchEngine | null;
 };
 
-export function EnvError({ missing }: EnvErrorProps) {
+export function EnvError({ missing, engine }: EnvErrorProps) {
+  const engineLabel =
+    engine === "opensearch" ? "OpenSearch" : "Meilisearch";
+
   return (
     <div className="mx-auto flex min-h-screen max-w-lg flex-col justify-center px-6 py-16">
       <div className="rounded-2xl border border-border bg-surface-elevated p-8 shadow-xl">
@@ -18,7 +24,8 @@ export function EnvError({ missing }: EnvErrorProps) {
           <code className="rounded bg-surface px-1.5 py-0.5 text-accent">
             .env
           </code>{" "}
-          and set your Meilisearch Cloud credentials.
+          and set <strong className="text-white">{engineLabel}</strong> for{" "}
+          <code className="text-white">VITE_SEARCH_ENGINE={engine ?? "meilisearch"}</code>.
         </p>
         <ul className="mt-4 space-y-2 text-sm text-text-muted">
           {missing.map((key) => (
@@ -28,12 +35,20 @@ export function EnvError({ missing }: EnvErrorProps) {
             </li>
           ))}
         </ul>
-        <p className="mt-6 text-xs text-text-muted">
-          Use a search-only API key for{" "}
-          <code className="text-white">VITE_MEILISEARCH_SEARCH_API_KEY</code>.
-          Never put the master key in a{" "}
-          <code className="text-white">VITE_</code> variable.
-        </p>
+        {engine === "opensearch" && (
+          <p className="mt-6 text-xs text-text-muted">
+            OpenSearch without security: set only{" "}
+            <code className="text-white">VITE_OPENSEARCH_URL</code>. No API key
+            or username/password needed. npm scripts use{" "}
+            <code className="text-white">OPENSEARCH_URL</code>.
+          </p>
+        )}
+        {engine === "meilisearch" && (
+          <p className="mt-6 text-xs text-text-muted">
+            Use a search-only API key for{" "}
+            <code className="text-white">VITE_MEILISEARCH_SEARCH_API_KEY</code>.
+          </p>
+        )}
       </div>
     </div>
   );

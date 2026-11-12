@@ -1,0 +1,972 @@
+[
+  {
+    "id": "business-city-family-multispeciality-hospital",
+    "name": "City Family & Multispeciality Hospital",
+    "slug": "city-family-multispeciality-hospital",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Service Provider",
+    "category_labels": [
+      "Healthcare",
+      "Hospitals"
+    ],
+    "search_text": "City Family & Multispeciality Hospital Healthcare Hospitals Service Provider services service provider professional Jaipur Rajasthan India",
+    "is_live": true,
+    "pincode": "302021"
+  },
+  {
+    "id": "business-lake-pichola-heritage-rooftop-restaurant",
+    "name": "Lake Pichola Heritage Rooftop Restaurant",
+    "slug": "lake-pichola-heritage-rooftop-restaurant",
+    "city": "Udaipur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Service Provider",
+    "category_labels": [
+      "Food & Dining",
+      "Restaurants"
+    ],
+    "search_text": "Lake Pichola Heritage Rooftop Restaurant Food & Dining Restaurants Service Provider services service provider professional Udaipur Rajasthan India",
+    "is_live": true,
+    "pincode": "313001"
+  },
+  {
+    "id": "business-microsoft",
+    "name": "Microsoft",
+    "slug": "microsoft",
+    "city": "Jodhpur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Services",
+    "category_labels": [
+      "Electronics",
+      "Computer",
+      "Laptops"
+    ],
+    "search_text": "Microsoft Electronics Computer Laptops Services electronic goods consumer electronics gadgets computers computer shop IT hardware laptop notebook PC Jodhpur Rajasthan India",
+    "is_live": true,
+    "pincode": "342001"
+  },
+  {
+    "id": "business-marwadi-elotrions",
+    "name": "Marwadi Elotrions",
+    "slug": "marwadi-elotrions",
+    "city": "Jodhpur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Computer",
+      "Laptops",
+      "Consumer Electronics",
+      "Air Conditioners",
+      "Headphones & Speakers",
+      "Bluetooth Speakers",
+      "Wireless earbuds"
+    ],
+    "search_text": "Marwadi Elotrions Electronics Computer Laptops Consumer Air Conditioners Headphones & Speakers Bluetooth Wireless earbuds Retailer electronic goods consumer electronics gadgets computers computer shop IT hardware laptop notebook PC AC air conditioning inverter speaker wireless audio earphones headphones retail store dealer Jodhpur Rajasthan India",
+    "is_live": true,
+    "pincode": "342001"
+  },
+  {
+    "id": "business-shree-ram-real-estate-developers",
+    "name": "Shree Ram Real Estate & Developers",
+    "slug": "shree-ram-real-estate-developers",
+    "city": "Surat",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Service Provider",
+    "category_labels": [
+      "Real Estate",
+      "Property Developers"
+    ],
+    "search_text": "Shree Ram Real Estate & Developers Property Service Provider services service provider professional Surat Gujarat India",
+    "is_live": true,
+    "pincode": "395007"
+  },
+  {
+    "id": "business-vrindavan-electronics",
+    "name": "Vrindavan Electronics",
+    "slug": "vrindavan-electronics",
+    "city": "Sirohi",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Headphones & Speakers",
+      "Computer",
+      "Laptops",
+      "Bluetooth Speakers",
+      "Wireless earbuds",
+      "Mobiles",
+      "Consumer Electronics",
+      "Air Conditioners"
+    ],
+    "search_text": "Vrindavan Electronics Headphones & Speakers Computer Laptops Bluetooth Wireless earbuds Mobiles Consumer Air Conditioners Retailer electronic goods consumer electronics gadgets computers computer shop IT hardware laptop notebook PC speaker wireless audio earphones headphones mobile phone smartphone cell AC air conditioning inverter retail store dealer Sirohi Rajasthan India",
+    "is_live": true,
+    "pincode": "307801"
+  },
+  {
+    "id": "business-yogifto",
+    "name": "YoGifto",
+    "slug": "yogifto",
+    "city": "Sirohi",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Gifts & Retail"
+    ],
+    "search_text": "YoGifto Gifts & Retail Retailer retail shop store dealer Sirohi Rajasthan India",
+    "is_live": true,
+    "pincode": "307801"
+  },
+  {
+    "id": "business-shekhawati-handloom-bandhani-emporium",
+    "name": "Shekhawati Handloom & Bandhani Emporium",
+    "slug": "shekhawati-handloom-bandhani-emporium",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [],
+    "search_text": "Shekhawati Handloom & Bandhani Emporium Retailer retail shop store dealer Jaipur Rajasthan India",
+    "is_live": true,
+    "pincode": "302002"
+  },
+  {
+    "id": "business-computer-hardware",
+    "name": "computer hardware",
+    "slug": "computer-hardware",
+    "city": "Jodhpur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Computer",
+      "IT Hardware"
+    ],
+    "search_text": "computer hardware Computer IT Hardware Retailer computers shop retail store dealer Jodhpur Rajasthan India",
+    "is_live": true,
+    "pincode": "3412006"
+  },
+  {
+    "id": "business-maruti-techventures-llp",
+    "name": "Maruti TechVentures LLP",
+    "slug": "maruti-techventures-llp",
+    "city": "Ahmedabad",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Service Provider",
+    "category_labels": [
+      "IT Services",
+      "Software"
+    ],
+    "search_text": "Maruti TechVentures LLP IT Services Software Service Provider services service provider professional Ahmedabad Gujarat India",
+    "is_live": true,
+    "pincode": "380015"
+  },
+  {
+    "id": "business-withcaliberx",
+    "name": "WithCaliberX",
+    "slug": "withcaliberx",
+    "city": "Jodhpur",
+    "state": null,
+    "country": "India",
+    "business_type": "Service Provider",
+    "category_labels": [],
+    "search_text": "WithCaliberX Service Provider services service provider professional Jodhpur India",
+    "is_live": true,
+    "pincode": "342008"
+  },
+  {
+    "id": "business-shivam-gift-center",
+    "name": "Shivam Gift Center",
+    "slug": "shivam-gift-center",
+    "city": "Vizianagaram",
+    "state": "Andhra Pradesh",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Gifts & Retail"
+    ],
+    "search_text": "Shivam Gift Center Gifts & Retail Retailer retail shop store dealer Vizianagaram Andhra Pradesh India",
+    "is_live": true,
+    "pincode": "535001"
+  },
+  {
+    "id": "business-marwadi-media",
+    "name": "Marwadi media",
+    "slug": "marwadi-media",
+    "city": "Jalore",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Service Provider",
+    "category_labels": [
+      "Media Services"
+    ],
+    "search_text": "Marwadi media Media Services Service Provider services service provider professional Jalore Rajasthan India",
+    "is_live": true,
+    "pincode": "343001"
+  },
+  {
+    "id": "business-titanium-techpark-software-solutions",
+    "name": "Titanium TechPark Software Solutions",
+    "slug": "titanium-techpark-software-solutions",
+    "city": "Ahmedabad",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Service Provider",
+    "category_labels": [
+      "IT Services",
+      "Software"
+    ],
+    "search_text": "Titanium TechPark Software Solutions IT Services Service Provider services service provider professional Ahmedabad Gujarat India",
+    "is_live": true,
+    "pincode": "380054"
+  },
+  {
+    "id": "business-aravali-laptop-computer-house",
+    "name": "Aravali Laptop & Computer House",
+    "slug": "aravali-laptop-computer-house-demo-01",
+    "city": "Sirohi",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Computer",
+      "Laptops"
+    ],
+    "search_text": "Aravali Laptop & Computer House Electronics Laptops Retailer electronic goods consumer electronics gadgets computers computer shop IT hardware laptop notebook PC retail store dealer Sirohi Rajasthan India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-pink-city-mobile-bazaar",
+    "name": "Pink City Mobile Bazaar",
+    "slug": "pink-city-mobile-bazaar-demo-02",
+    "city": "Vadodara",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Consumer Electronics",
+      "Mobiles"
+    ],
+    "search_text": "Pink City Mobile Bazaar Electronics Consumer Mobiles Retailer electronic goods consumer electronics gadgets mobile phone smartphone cell retail shop store dealer Vadodara Gujarat India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-desert-cool-air-systems",
+    "name": "Desert Cool Air Systems",
+    "slug": "desert-cool-air-systems-demo-03",
+    "city": "Surat",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Consumer Electronics",
+      "Air Conditioners"
+    ],
+    "search_text": "Desert Cool Air Systems Electronics Consumer Conditioners Retailer electronic goods consumer electronics gadgets AC air conditioning inverter retail shop store dealer Surat Gujarat India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-blue-neem-audio-store",
+    "name": "Blue Neem Audio Store",
+    "slug": "blue-neem-audio-store-demo-04",
+    "city": "Udaipur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Headphones & Speakers",
+      "Wireless earbuds"
+    ],
+    "search_text": "Blue Neem Audio Store Electronics Headphones & Speakers Wireless earbuds Retailer electronic goods consumer electronics gadgets earphones headphones retail shop store dealer Udaipur Rajasthan India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-saffron-sound-speaker-mart",
+    "name": "Saffron Sound & Speaker Mart",
+    "slug": "saffron-sound-speaker-mart-demo-05",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Headphones & Speakers",
+      "Bluetooth Speakers"
+    ],
+    "search_text": "Saffron Sound & Speaker Mart Electronics Headphones Speakers Bluetooth Retailer electronic goods consumer electronics gadgets speaker wireless audio retail shop store dealer Jaipur Rajasthan India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-maru-computer-solutions",
+    "name": "Maru Computer Solutions",
+    "slug": "maru-computer-solutions-demo-06",
+    "city": "Vadodara",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Services",
+    "category_labels": [
+      "Electronics",
+      "Computer",
+      "Laptops"
+    ],
+    "search_text": "Maru Computer Solutions Electronics Laptops Services electronic goods consumer electronics gadgets computers computer shop IT hardware laptop notebook PC Vadodara Gujarat India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-sabarmati-smart-devices",
+    "name": "Sabarmati Smart Devices",
+    "slug": "sabarmati-smart-devices-demo-07",
+    "city": "Surat",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Consumer Electronics",
+      "Mobiles"
+    ],
+    "search_text": "Sabarmati Smart Devices Electronics Consumer Mobiles Retailer electronic goods consumer electronics gadgets mobile phone smartphone cell retail shop store dealer Surat Gujarat India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-surya-digital-electronics",
+    "name": "Surya Digital Electronics",
+    "slug": "surya-digital-electronics-demo-08",
+    "city": "Jalore",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Computer",
+      "Laptops"
+    ],
+    "search_text": "Surya Digital Electronics Computer Laptops Retailer electronic goods consumer electronics gadgets computers computer shop IT hardware laptop notebook PC retail store dealer Jalore Rajasthan India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-kutch-cooling-appliances",
+    "name": "Kutch Cooling & Appliances",
+    "slug": "kutch-cooling-appliances-demo-09",
+    "city": "Udaipur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Consumer Electronics",
+      "Air Conditioners"
+    ],
+    "search_text": "Kutch Cooling & Appliances Electronics Consumer Air Conditioners Retailer electronic goods consumer electronics gadgets AC air conditioning inverter retail shop store dealer Udaipur Rajasthan India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-rangilo-audio-gallery",
+    "name": "Rangilo Audio Gallery",
+    "slug": "rangilo-audio-gallery-demo-10",
+    "city": "Vadodara",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Headphones & Speakers",
+      "Bluetooth Speakers"
+    ],
+    "search_text": "Rangilo Audio Gallery Electronics Headphones & Speakers Bluetooth Retailer electronic goods consumer electronics gadgets speaker wireless audio retail shop store dealer Vadodara Gujarat India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-mewar-mobile-accessories",
+    "name": "Mewar Mobile & Accessories",
+    "slug": "mewar-mobile-accessories-demo-11",
+    "city": "Surat",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Consumer Electronics",
+      "Mobiles"
+    ],
+    "search_text": "Mewar Mobile & Accessories Electronics Consumer Mobiles Retailer electronic goods consumer electronics gadgets mobile phone smartphone cell retail shop store dealer Surat Gujarat India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-narmada-laptop-point",
+    "name": "Narmada Laptop Point",
+    "slug": "narmada-laptop-point-demo-12",
+    "city": "Jodhpur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Computer",
+      "Laptops"
+    ],
+    "search_text": "Narmada Laptop Point Electronics Computer Laptops Retailer electronic goods consumer electronics gadgets computers computer shop IT hardware laptop notebook PC retail store dealer Jodhpur Rajasthan India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-girnar-home-cooling",
+    "name": "Girnar Home Cooling",
+    "slug": "girnar-home-cooling-demo-13",
+    "city": "Jalore",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Consumer Electronics",
+      "Air Conditioners"
+    ],
+    "search_text": "Girnar Home Cooling Electronics Consumer Air Conditioners Retailer electronic goods consumer electronics gadgets AC air conditioning inverter retail shop store dealer Jalore Rajasthan India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-ranchi-wireless-world",
+    "name": "Ranchi Wireless World",
+    "slug": "ranchi-wireless-world-demo-14",
+    "city": "Ranchi",
+    "state": "Jharkhand",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Headphones & Speakers",
+      "Wireless earbuds"
+    ],
+    "search_text": "Ranchi Wireless World Electronics Headphones & Speakers earbuds Retailer electronic goods consumer electronics gadgets earphones headphones retail shop store dealer Jharkhand India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-godavari-digital-mart",
+    "name": "Godavari Digital Mart",
+    "slug": "godavari-digital-mart-demo-15",
+    "city": "Surat",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Consumer Electronics",
+      "Mobiles"
+    ],
+    "search_text": "Godavari Digital Mart Electronics Consumer Mobiles Retailer electronic goods consumer electronics gadgets mobile phone smartphone cell retail shop store dealer Surat Gujarat India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-jalore-computer-care",
+    "name": "Jalore Computer Care",
+    "slug": "jalore-computer-care-demo-16",
+    "city": "Sirohi",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Services",
+    "category_labels": [
+      "Electronics",
+      "Computer",
+      "Laptops"
+    ],
+    "search_text": "Jalore Computer Care Electronics Laptops Services electronic goods consumer electronics gadgets computers computer shop IT hardware laptop notebook PC Sirohi Rajasthan India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-udaipur-sound-house",
+    "name": "Udaipur Sound House",
+    "slug": "udaipur-sound-house-demo-17",
+    "city": "Jodhpur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Headphones & Speakers",
+      "Bluetooth Speakers"
+    ],
+    "search_text": "Udaipur Sound House Electronics Headphones & Speakers Bluetooth Retailer electronic goods consumer electronics gadgets speaker wireless audio retail shop store dealer Jodhpur Rajasthan India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-ahmedabad-notebook-centre",
+    "name": "Ahmedabad Notebook Centre",
+    "slug": "ahmedabad-notebook-centre-demo-18",
+    "city": "Vadodara",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Computer",
+      "Laptops"
+    ],
+    "search_text": "Ahmedabad Notebook Centre Electronics Computer Laptops Retailer electronic goods consumer electronics gadgets computers computer shop IT hardware laptop notebook PC retail store dealer Vadodara Gujarat India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-vadodara-appliance-hub",
+    "name": "Vadodara Appliance Hub",
+    "slug": "vadodara-appliance-hub-demo-19",
+    "city": "Surat",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Consumer Electronics",
+      "Air Conditioners"
+    ],
+    "search_text": "Vadodara Appliance Hub Electronics Consumer Air Conditioners Retailer electronic goods consumer electronics gadgets AC air conditioning inverter retail shop store dealer Surat Gujarat India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-rajkot-smart-tech-store",
+    "name": "Rajkot Smart Tech Store",
+    "slug": "rajkot-smart-tech-store-demo-20",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Consumer Electronics",
+      "Mobiles"
+    ],
+    "search_text": "Rajkot Smart Tech Store Electronics Consumer Mobiles Retailer electronic goods consumer electronics gadgets mobile phone smartphone cell retail shop store dealer Jaipur Rajasthan India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-sirohi-digital-seva",
+    "name": "Sirohi Digital Seva",
+    "slug": "sirohi-digital-seva-demo-21",
+    "city": "Sirohi",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Services",
+    "category_labels": [
+      "Electronics",
+      "Computer",
+      "Laptops"
+    ],
+    "search_text": "Sirohi Digital Seva Electronics Computer Laptops Services electronic goods consumer electronics gadgets computers computer shop IT hardware laptop notebook PC Rajasthan India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-surat-earbud-audio-shop",
+    "name": "Surat Earbud & Audio Shop",
+    "slug": "surat-earbud-audio-shop-demo-22",
+    "city": "Vadodara",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Headphones & Speakers",
+      "Wireless earbuds"
+    ],
+    "search_text": "Surat Earbud & Audio Shop Electronics Headphones Speakers Wireless earbuds Retailer electronic goods consumer electronics gadgets earphones headphones retail shop store dealer Vadodara Gujarat India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-vizianagaram-electronics-corner",
+    "name": "Vizianagaram Electronics Corner",
+    "slug": "vizianagaram-electronics-corner-demo-23",
+    "city": "Vizianagaram",
+    "state": "Andhra Pradesh",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Consumer Electronics",
+      "Mobiles"
+    ],
+    "search_text": "Vizianagaram Electronics Corner Consumer Mobiles Retailer electronic goods consumer electronics gadgets mobile phone smartphone cell retail shop store dealer Andhra Pradesh India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-jodhpur-techno-bazaar",
+    "name": "Jodhpur Techno Bazaar",
+    "slug": "jodhpur-techno-bazaar-demo-24",
+    "city": "Udaipur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Computer",
+      "Laptops"
+    ],
+    "search_text": "Jodhpur Techno Bazaar Electronics Computer Laptops Retailer electronic goods consumer electronics gadgets computers computer shop IT hardware laptop notebook PC retail store dealer Udaipur Rajasthan India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-jaipur-home-audio-centre",
+    "name": "Jaipur Home Audio Centre",
+    "slug": "jaipur-home-audio-centre-demo-25",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Headphones & Speakers",
+      "Bluetooth Speakers"
+    ],
+    "search_text": "Jaipur Home Audio Centre Electronics Headphones & Speakers Bluetooth Retailer electronic goods consumer electronics gadgets speaker wireless audio retail shop store dealer Rajasthan India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-ahmedabad-climate-comfort",
+    "name": "Ahmedabad Climate Comfort",
+    "slug": "ahmedabad-climate-comfort-demo-26",
+    "city": "Vadodara",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Consumer Electronics",
+      "Air Conditioners"
+    ],
+    "search_text": "Ahmedabad Climate Comfort Electronics Consumer Air Conditioners Retailer electronic goods consumer electronics gadgets AC air conditioning inverter retail shop store dealer Vadodara Gujarat India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-rajasthan-mobile-gallery",
+    "name": "Rajasthan Mobile Gallery",
+    "slug": "rajasthan-mobile-gallery-demo-27",
+    "city": "Surat",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Consumer Electronics",
+      "Mobiles"
+    ],
+    "search_text": "Rajasthan Mobile Gallery Electronics Consumer Mobiles Retailer electronic goods consumer electronics gadgets mobile phone smartphone cell retail shop store dealer Surat Gujarat India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-gujarat-computer-seva",
+    "name": "Gujarat Computer Seva",
+    "slug": "gujarat-computer-seva-demo-28",
+    "city": "Jalore",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Services",
+    "category_labels": [
+      "Electronics",
+      "Computer",
+      "Laptops"
+    ],
+    "search_text": "Gujarat Computer Seva Electronics Laptops Services electronic goods consumer electronics gadgets computers computer shop IT hardware laptop notebook PC Jalore Rajasthan India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-ranchi-laptop-office-store",
+    "name": "Ranchi Laptop & Office Store",
+    "slug": "ranchi-laptop-office-store-demo-29",
+    "city": "Ranchi",
+    "state": "Jharkhand",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Computer",
+      "Laptops"
+    ],
+    "search_text": "Ranchi Laptop & Office Store Electronics Computer Laptops Retailer electronic goods consumer electronics gadgets computers computer shop IT hardware laptop notebook PC retail store dealer Jharkhand India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-marwar-headphone-house",
+    "name": "Marwar Headphone House",
+    "slug": "marwar-headphone-house-demo-30",
+    "city": "Vadodara",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Headphones & Speakers",
+      "Wireless earbuds"
+    ],
+    "search_text": "Marwar Headphone House Electronics Headphones & Speakers Wireless earbuds Retailer electronic goods consumer electronics gadgets earphones headphones retail shop store dealer Vadodara Gujarat India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-udaipur-ac-appliance-store",
+    "name": "Udaipur AC & Appliance Store",
+    "slug": "udaipur-ac-appliance-store-demo-31",
+    "city": "Surat",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Consumer Electronics",
+      "Air Conditioners"
+    ],
+    "search_text": "Udaipur AC & Appliance Store Electronics Consumer Air Conditioners Retailer electronic goods consumer electronics gadgets air conditioning inverter retail shop store dealer Surat Gujarat India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-surat-smart-mobile-point",
+    "name": "Surat Smart Mobile Point",
+    "slug": "surat-smart-mobile-point-demo-32",
+    "city": "Jodhpur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Consumer Electronics",
+      "Mobiles"
+    ],
+    "search_text": "Surat Smart Mobile Point Electronics Consumer Mobiles Retailer electronic goods consumer electronics gadgets mobile phone smartphone cell retail shop store dealer Jodhpur Rajasthan India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-sirohi-sound-vision",
+    "name": "Sirohi Sound & Vision",
+    "slug": "sirohi-sound-vision-demo-33",
+    "city": "Jalore",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Headphones & Speakers",
+      "Bluetooth Speakers"
+    ],
+    "search_text": "Sirohi Sound & Vision Electronics Headphones Speakers Bluetooth Retailer electronic goods consumer electronics gadgets speaker wireless audio retail shop store dealer Jalore Rajasthan India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-jalore-laptop-junction",
+    "name": "Jalore Laptop Junction",
+    "slug": "jalore-laptop-junction-demo-34",
+    "city": "Vadodara",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Computer",
+      "Laptops"
+    ],
+    "search_text": "Jalore Laptop Junction Electronics Computer Laptops Retailer electronic goods consumer electronics gadgets computers computer shop IT hardware laptop notebook PC retail store dealer Vadodara Gujarat India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-jaipur-digital-repair-studio",
+    "name": "Jaipur Digital Repair Studio",
+    "slug": "jaipur-digital-repair-studio-demo-35",
+    "city": "Surat",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Services",
+    "category_labels": [
+      "Electronics",
+      "Computer",
+      "Laptops"
+    ],
+    "search_text": "Jaipur Digital Repair Studio Electronics Computer Laptops Services electronic goods consumer electronics gadgets computers computer shop IT hardware laptop notebook PC Surat Gujarat India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-sabarmati-earphone-gallery",
+    "name": "Sabarmati Earphone Gallery",
+    "slug": "sabarmati-earphone-gallery-demo-36",
+    "city": "Sirohi",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Retailer",
+    "category_labels": [
+      "Electronics",
+      "Headphones & Speakers",
+      "Wireless earbuds"
+    ],
+    "search_text": "Sabarmati Earphone Gallery Electronics Headphones & Speakers Wireless earbuds Retailer electronic goods consumer electronics gadgets earphones headphones retail shop store dealer Sirohi Rajasthan India",
+    "is_live": true,
+    "pincode": null
+  },
+  {
+    "id": "business-heena-electronics-private-limited",
+    "name": "Heena Electronics Private Limited",
+    "city": "Surat",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Wholesaler",
+    "category_labels": [
+      "Electronics",
+      "Home Appliances",
+      "Consumer Electronics"
+    ],
+    "search_text": "Heena Electronics Private Limited Home Appliances Consumer Wholesaler electronic goods consumer electronics gadgets wholesale bulk supplier dealer Surat Gujarat India Self-described distributor; serves retailers across Gujarat.",
+    "is_live": true,
+    "pincode": "395010"
+  },
+  {
+    "id": "business-avani-electronics",
+    "name": "Avani Electronics",
+    "city": "Ahmedabad",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Distributor",
+    "category_labels": [
+      "Electronics",
+      "Industrial Electronics",
+      "Semiconductors"
+    ],
+    "search_text": "Avani Electronics Industrial Semiconductors Distributor electronic goods consumer electronics gadgets distribution authorized distributor stockist Ahmedabad Gujarat India Describes itself as an authorised distributor/stockist of components and semiconductors.",
+    "is_live": true,
+    "pincode": "380007"
+  },
+  {
+    "id": "business-madhav-enterprise",
+    "name": "Madhav Enterprise",
+    "city": "Surat",
+    "state": "Gujarat",
+    "country": "India",
+    "business_type": "Wholesaler",
+    "category_labels": [
+      "Electronics",
+      "Cables",
+      "Networking",
+      "CCTV",
+      "Audio-Video"
+    ],
+    "search_text": "Madhav Enterprise Electronics Cables Networking CCTV Audio-Video Wholesaler electronic goods consumer electronics gadgets wholesale bulk supplier dealer Surat Gujarat India Self-described distributor and wholesaler of cables accessories.",
+    "is_live": true,
+    "pincode": "395009"
+  },
+  {
+    "id": "business-chandra-electronic-appliances",
+    "name": "Chandra Electronic Appliances",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Distributor",
+    "category_labels": [
+      "Consumer Electronics",
+      "Home Appliances"
+    ],
+    "search_text": "Chandra Electronic Appliances Consumer Electronics Home Distributor distribution authorized distributor stockist Jaipur Rajasthan India Group describes its consumer electronics network and address.",
+    "is_live": true,
+    "pincode": "302016"
+  },
+  {
+    "id": "business-house-of-deals",
+    "name": "House of Deals",
+    "city": "Jodhpur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Wholesaler",
+    "category_labels": [
+      "Consumer Electronics",
+      "Home Appliances",
+      "IT Products"
+    ],
+    "search_text": "House of Deals Consumer Electronics Home Appliances IT Products Wholesaler wholesale bulk supplier dealer Jodhpur Rajasthan India Storefront describes the business as an electronics wholesaler and advertises pricing.",
+    "is_live": true,
+    "pincode": "342001"
+  },
+  {
+    "id": "business-smarthub-it-store",
+    "name": "SmartHub IT Store",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Distributor",
+    "category_labels": [
+      "Computer",
+      "Laptops",
+      "IT Hardware"
+    ],
+    "search_text": "SmartHub IT Store Computer Laptops Hardware Distributor computers computer shop hardware laptop notebook PC distribution authorized distributor stockist Jaipur Rajasthan India Describes stockist/distribution and wholesale supply for dealers.",
+    "is_live": true,
+    "pincode": "302001"
+  },
+  {
+    "id": "business-smart24",
+    "name": "Smart24",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Distributor",
+    "category_labels": [
+      "Computer",
+      "IT Hardware",
+      "Networking",
+      "CCTV"
+    ],
+    "search_text": "Smart24 Computer IT Hardware Networking CCTV Distributor computers computer shop hardware distribution authorized distributor stockist Jaipur Rajasthan India Describes itself as a B2B technology distributor.",
+    "is_live": true,
+    "pincode": "302039"
+  },
+  {
+    "id": "business-lisbon-toys",
+    "name": "Lisbon Toys",
+    "city": "Jodhpur",
+    "state": "Rajasthan",
+    "country": "India",
+    "business_type": "Wholesaler",
+    "category_labels": [
+      "Toys",
+      "Wholesale"
+    ],
+    "search_text": "Lisbon Toys Wholesale Wholesaler wholesale bulk supplier dealer Jodhpur Rajasthan India Contact page links to a catalogue and gives address.",
+    "is_live": true,
+    "pincode": "342005"
+  }
+]

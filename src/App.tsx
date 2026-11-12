@@ -7,11 +7,13 @@ function App() {
   const validation = validateClientEnv();
 
   if (!validation.ok) {
-    return <EnvError missing={validation.missing} />;
+    return (
+      <EnvError missing={validation.missing} engine={validation.engine} />
+    );
   }
 
   return (
-    <AppShell>
+    <AppShell engine={validation.env.engine}>
       <SearchExperience env={validation.env} />
     </AppShell>
   );

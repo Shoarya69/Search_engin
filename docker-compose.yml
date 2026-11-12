@@ -1,0 +1,18 @@
+services:
+  app:
+    build: .
+    image: catalog-search:latest
+    ports:
+      - "${APP_PORT:-8080}:80"
+    environment:
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY:-meili-demo-master-key}
+      DATA_PROFILE: ${DATA_PROFILE:-catalog}
+      SEARCH_INDEX_NAME: ${SEARCH_INDEX_NAME:-catalog}
+      NLP_MODE: ${NLP_MODE:-hybrid}
+      GLINER_MODEL: ${GLINER_MODEL:-gliner-community/gliner_small-v2.5}
+    volumes:
+      - meili_data:/data
+    restart: unless-stopped
+
+volumes:
+  meili_data:
