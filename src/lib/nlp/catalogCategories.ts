@@ -1,4 +1,4 @@
-/** category_labels from marwadihub-data.json. These are categories, not products. */
+/** category_labels from catalog-data.json. These are categories, not products. */
 export const CATALOG_CATEGORIES = [
   "Electronics",
   "Consumer Electronics",

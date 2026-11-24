@@ -47,7 +47,7 @@ COPY --from=web /usr/local/bin/node /usr/local/bin/node
 COPY --from=web /src/node_modules /opt/app/node_modules
 COPY --from=web /src/dist /usr/share/nginx/html
 COPY scripts /opt/app/scripts
-COPY package.json marwadihub-data.json movies.json /opt/app/
+COPY package.json catalog-data.json movies.json /opt/app/
 COPY nlp_api/server.py /opt/nlp/server.py
 COPY --from=model /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
 COPY --from=model /usr/local/bin/uvicorn /usr/local/bin/uvicorn

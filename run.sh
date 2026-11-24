@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# Start the search container and the host nginx site for search.marwadihub.com.
+# Start the search container and optional host nginx (set SEARCH_DOMAIN).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 cd "$ROOT"
 
-DOMAIN="search.marwadihub.com"
+DOMAIN="${SEARCH_DOMAIN:-}"
 REQUESTED_PORT="${APP_PORT:-8080}"
-SITE_SRC="$ROOT/deploy/nginx/${DOMAIN}.conf"
-SITE_AVAIL="/etc/nginx/sites-available/${DOMAIN}"
-SITE_EN="/etc/nginx/sites-enabled/${DOMAIN}"
+SITE_SRC="$ROOT/deploy/nginx/catalog-search.conf"
+SITE_AVAIL="/etc/nginx/sites-available/${DOMAIN:-catalog-search}"
+SITE_EN="/etc/nginx/sites-enabled/${DOMAIN:-catalog-search}"
 
 pick_port() {
   local port="$1"
@@ -37,9 +37,18 @@ fi
 echo "Starting Docker app on 127.0.0.1:${APP_PORT}"
 APP_PORT="$APP_PORT" docker compose up -d
 
+if [ -z "$DOMAIN" ]; then
+  echo "App: http://127.0.0.1:${APP_PORT}"
+  echo "Set SEARCH_DOMAIN to configure host nginx and TLS (e.g. SEARCH_DOMAIN=search.example.com bash run.sh)"
+  exit 0
+fi
+
+SITE_AVAIL="/etc/nginx/sites-available/${DOMAIN}"
+SITE_EN="/etc/nginx/sites-enabled/${DOMAIN}"
+
 if ! sudo test -f "$SITE_AVAIL"; then
   echo "Installing nginx site ${DOMAIN}"
-  sed "s/__APP_PORT__/${APP_PORT}/g" "$SITE_SRC" | sudo tee "$SITE_AVAIL" >/dev/null
+  sed -e "s/__APP_PORT__/${APP_PORT}/g" -e "s/__SEARCH_DOMAIN__/${DOMAIN}/g" "$SITE_SRC" | sudo tee "$SITE_AVAIL" >/dev/null
   sudo ln -sfn "$SITE_AVAIL" "$SITE_EN"
 else
   echo "Pointing nginx at 127.0.0.1:${APP_PORT} (SSL config left as-is)"

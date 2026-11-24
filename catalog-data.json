@@ -49,9 +49,9 @@
     "pincode": "342001"
   },
   {
-    "id": "business-marwadi-elotrions",
-    "name": "Marwadi Elotrions",
-    "slug": "marwadi-elotrions",
+    "id": "business-elotrions-electronics",
+    "name": "Elotrions Electronics",
+    "slug": "elotrions-electronics",
     "city": "Jodhpur",
     "state": "Rajasthan",
     "country": "India",
@@ -66,7 +66,7 @@
       "Bluetooth Speakers",
       "Wireless earbuds"
     ],
-    "search_text": "Marwadi Elotrions Electronics Computer Laptops Consumer Air Conditioners Headphones & Speakers Bluetooth Wireless earbuds Retailer electronic goods consumer electronics gadgets computers computer shop IT hardware laptop notebook PC AC air conditioning inverter speaker wireless audio earphones headphones retail store dealer Jodhpur Rajasthan India",
+    "search_text": "Elotrions Electronics Electronics Computer Laptops Consumer Air Conditioners Headphones & Speakers Bluetooth Wireless earbuds Retailer electronic goods consumer electronics gadgets computers computer shop IT hardware laptop notebook PC AC air conditioning inverter speaker wireless audio earphones headphones retail store dealer Jodhpur Rajasthan India",
     "is_live": true,
     "pincode": "342001"
   },
@@ -198,9 +198,9 @@
     "pincode": "535001"
   },
   {
-    "id": "business-marwadi-media",
-    "name": "Marwadi media",
-    "slug": "marwadi-media",
+    "id": "business-jalore-media",
+    "name": "Jalore Media",
+    "slug": "jalore-media",
     "city": "Jalore",
     "state": "Rajasthan",
     "country": "India",
@@ -208,7 +208,7 @@
     "category_labels": [
       "Media Services"
     ],
-    "search_text": "Marwadi media Media Services Service Provider services service provider professional Jalore Rajasthan India",
+    "search_text": "Jalore Media Media Services Service Provider services service provider professional Jalore Rajasthan India",
     "is_live": true,
     "pincode": "343001"
   },

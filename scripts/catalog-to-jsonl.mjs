@@ -1,5 +1,5 @@
 /**
- * Write Vespa-style JSONL from marwadihub-data.json (array or JSONL).
+ * Write Vespa-style JSONL from catalog-data.json (array or JSONL).
  */
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { resolve, dirname } from "node:path";
@@ -8,7 +8,7 @@ import { businessDocsFromRaw } from "./lib/catalog-formats.mjs";
 const input =
   process.argv[2] ||
   process.env.CATALOG_JSON_PATH ||
-  resolve(process.cwd(), "marwadihub-data.json");
+  resolve(process.cwd(), "catalog-data.json");
 const output =
   process.argv[3] ||
   process.env.CATALOG_JSONL_PATH ||

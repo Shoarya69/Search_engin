@@ -36,7 +36,7 @@ LABELS = [
 
 THRESHOLD = float(os.getenv("GLINER_THRESHOLD", "0.4"))
 
-# category_labels in marwadihub-data.json. These are categories, not products.
+# category_labels in catalog-data.json. These are categories, not products.
 CATEGORIES = (
     "Electronics",
     "Consumer Electronics",

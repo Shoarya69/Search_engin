@@ -204,7 +204,7 @@ export async function resolveDataPath() {
   }
 
   if (getDataProfile() === "catalog") {
-  const catalogPath = resolve(process.cwd(), "marwadihub-data.json");
+  const catalogPath = resolve(process.cwd(), "catalog-data.json");
     return catalogPath;
   }
 

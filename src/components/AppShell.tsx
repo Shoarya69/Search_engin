@@ -22,11 +22,11 @@ export function AppShell({ children, engine, dataProfile }: AppShellProps) {
             className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent font-bold text-white"
             aria-hidden
           >
-            M
+            C
           </div>
           <div>
             <h1 className="text-lg font-semibold tracking-tight sm:text-xl">
-              {catalog ? "MarwadiHub" : "Movie Search"}
+              {catalog ? "Catalog Search" : "Movie Search"}
             </h1>
             <p className="text-xs text-text-muted sm:text-sm">
               {catalog

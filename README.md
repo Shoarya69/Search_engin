@@ -1,104 +1,108 @@
-# Movie Search (React + Meilisearch / OpenSearch)
+# Catalog Search
 
-Movie search demo with **Vite**, **React**, **Tailwind**, and **either Meilisearch or OpenSearch** — chosen via `.env`. Same UI: IMDb-enriched data, smart queries (no LLM), filters, sort, pagination.
+Business catalog search demo. The page lists **businesses**. A search for a product or a category returns the businesses that carry it. Opening a business shows the **product categories** inside it, not a separate product hit.
 
-Legacy CDN demos: [`legacy/`](legacy/).
+The UI is Vite, React, and Tailwind. Search is Meilisearch. Optional natural-language parsing is a small Python API (GLiNER) that runs only when you press Enter.
 
-## Choose search engine
+An older movie demo is still in the repo (`DATA_PROFILE=movies`). The default path below is the catalog.
 
-Set **both** (same value):
+## What a record is
 
-```env
-VITE_SEARCH_ENGINE=meilisearch   # or opensearch
-SEARCH_ENGINE=meilisearch        # used by npm run seed
-```
+| Thing | Where it lives | What it means |
+|---|---|---|
+| Business | `businesses.json`, and the smaller `catalog-data.json` used by seed | A shop or service. This is a search hit. |
+| Product category | `category_labels` on a business | A label such as `Home Appliances` or `Laptops`. This is not a product. |
+| Product | `products.json` | A sellable item. It points at a business with `business_id`. The current index does not store one document per product. |
 
-| Engine | Frontend env | Seed env |
-|--------|--------------|----------|
-| **Meilisearch** | `VITE_MEILISEARCH_HOST`, `VITE_MEILISEARCH_SEARCH_API_KEY` | `MEILISEARCH_HOST`, `MEILISEARCH_MASTER_API_KEY` |
-| **OpenSearch** | `VITE_OPENSEARCH_URL`, auth (`VITE_OPENSEARCH_USERNAME`/`PASSWORD` or `VITE_OPENSEARCH_API_KEY`) | `OPENSEARCH_URL`, `OPENSEARCH_USERNAME`, `OPENSEARCH_PASSWORD` |
+`category_labels` examples: Electronics, Home Appliances, Laptops, Mobiles, Air Conditioners.
 
-Shared (optional): `VITE_SEARCH_INDEX_NAME` / `SEARCH_INDEX_NAME` (default `movies`).
+GLiNER often tags a category phrase as `product`. `nlp_api/server.py` rewrites a known category after inference. `home appliance` and `home appliances` become the label `product category` and the text `Home Appliances`. The same list is in `src/lib/nlp/catalogCategories.ts`. If you add a category to the data, add it in both files.
 
-Copy [`.env.example`](.env.example) to `.env`.
+## How search behaves
 
-### OpenSearch dev proxy (CORS)
+- One or two words do not call Meilisearch. The previous results stay on screen.
+- Three words, then a short pause, run Meilisearch only. NLP is not called.
+- Enter runs NLP once, then refreshes the results with the parsed filters (city, state, category, business type).
+- Click a business to see its categories.
 
-For local OpenSearch, use in `.env`:
+Do not search on every keystroke. `src/components/SearchExperience.tsx` must create the Meilisearch client once with `useMemo`. A new client on every render makes InstantSearch search again, which calls `/parse` again.
 
-```env
-VITE_SEARCH_ENGINE=opensearch
-VITE_OPENSEARCH_URL=/opensearch
-OPENSEARCH_URL=http://localhost:9200
-```
+## Run it on your machine
 
-Vite proxies `/opensearch` → `OPENSEARCH_URL`. For self-signed TLS: `OPENSEARCH_INSECURE=true`.
-
-## Setup
+Needs Node 22, a Meilisearch server, and Python 3.12 if you want Enter to use GLiNER.
 
 ```bash
 npm install
 cp .env.example .env
-# edit .env for your engine
+```
 
-npm run build:movies   # optional IMDb enrich → movies-enriched.json
-npm run seed -- --force  # routes to Meilisearch or OpenSearch seed
+Catalog values:
+
+```env
+VITE_SEARCH_ENGINE=meilisearch
+SEARCH_ENGINE=meilisearch
+VITE_DATA_PROFILE=catalog
+DATA_PROFILE=catalog
+VITE_SEARCH_INDEX_NAME=catalog
+SEARCH_INDEX_NAME=catalog
+
+VITE_MEILISEARCH_HOST=http://localhost:7700
+VITE_MEILISEARCH_SEARCH_API_KEY=your_search_key
+MEILISEARCH_HOST=http://localhost:7700
+MEILISEARCH_MASTER_API_KEY=your_master_key
+
+VITE_NLP_MODE=hybrid
+VITE_NLP_API_URL=/nlp
+NLP_API_URL=http://127.0.0.1:8765
+```
+
+`VITE_MEILISEARCH_SEARCH_API_KEY` is the search-only key. Do not put the master key in any `VITE_` variable. The browser can read those.
+
+```bash
+npm run seed -- --force
+npm run nlp:serve
 npm run dev
 ```
 
+Vite proxies `/nlp` to `NLP_API_URL`. Open the URL Vite prints.
+
+`POST /parse` on the NLP process accepts `{ "query": "..." }` and returns entities. `GET /` on that process is 404. Health is `GET /health`.
+
+Seed reads `catalog-data.json` when `DATA_PROFILE=catalog`. `businesses.json` and `products.json` are the larger source files. They are not what `npm run seed` imports unless you point `CATALOG_JSON_PATH` at one of them. Pointing it at `products.json` would index products as if they were businesses. Do not do that without a new document shape.
+
+## Run it as one image
+
+`bash run.sh` builds `catalog-search:latest` and starts it. Inside the container, nginx serves the UI and proxies `/meili/` and `/nlp/`. Meilisearch and GLiNER listen on localhost inside the container. They are not published on the host.
+
+The image name is local. Compose is set to `pull_policy: build` so it does not try to pull `catalog-search` from Docker Hub.
+
+`run.sh` binds `127.0.0.1` and, if 8080 is taken, the next free port. Status text from the port picker goes to stderr. Only the port number may go to stdout. With `SEARCH_DOMAIN` set, host nginx for that name is updated to the chosen port. The site needs a public DNS A record before Certbot can issue a certificate. `NXDOMAIN` means the name is missing, not that the app failed.
+
+The first container start seeds the catalog index. The Meilisearch database stays in the `meili_data` volume. Set `MEILI_MASTER_KEY` before that first start. Changing it later does not unlock the old volume.
+
+UI and Python changes are baked into the image. On a server they show up after `git pull` and `bash run.sh`.
+
 ## Scripts
 
-### Index lifecycle (uses `SEARCH_ENGINE` from `.env`)
+| Command | What it does |
+|---|---|
+| `npm run dev` | UI, with the `/nlp` proxy |
+| `npm run nlp:serve` | GLiNER on `127.0.0.1:8765` |
+| `npm run seed -- --force` | Load the active dataset into the active engine |
+| `npm run index:status` | Check the engine and document count |
+| `npm run index:create` | Create the index settings |
+| `npm run index:delete -- --force` | Delete the index |
+| `npm run index:reset` | Delete, create, and seed |
+| `bash run.sh` | Build the image, start it, and attach host nginx |
 
-| Command | Description |
-|---------|-------------|
-| `npm run index:create` | Create / configure index (mappings or Meili settings) |
-| `npm run index:create -- --recreate` | Drop index first, then create |
-| `npm run index:status` | Ping cluster, doc count, schema summary |
-| `npm run index:test` | 4 smoke tests: browse, search, top rated, filters |
-| `npm run index:delete -- --force` | Delete index |
-| `npm run index:reset` | delete → create → seed `--force` (full rebuild) |
+`SEARCH_ENGINE=opensearch` is still wired through `scripts/seed.mjs` and `src/lib/opensearch/instantSearchClient.ts`. Local OpenSearch uses `VITE_OPENSEARCH_URL=/opensearch` so Vite can proxy it.
 
-Custom index name: set `SEARCH_INDEX_NAME=my_movies` in `.env` (same for seed + UI via `VITE_SEARCH_INDEX_NAME`).
+## Layout
 
-### Data & app
-
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Dev server (+ OpenSearch proxy when configured) |
-| `npm run build` | Production build |
-| `npm run build:movies` | Merge IMDb TSV + TMDB JSON |
-| `npm run seed` | Import documents into active engine |
-| `npm run seed:meili` / `seed:opensearch` | Engine-specific seed |
-| `npm run reindex` | `build:movies` + forced seed |
-
-### Typical workflow
-
-```bash
-npm run index:status          # check connection
-npm run index:create          # empty index + schema
-npm run build:movies          # optional enrich
-npm run seed -- --force       # load documents
-npm run index:test            # verify search/sort/filter
-npm run dev                   # open UI
-```
-
-## Smart search
-
-Rule-based parsing in [`src/lib/parseNaturalQuery.ts`](src/lib/parseNaturalQuery.ts) — works with both engines via InstantSearch `facetFilters` + sort index names (`movies:vote_average:desc`).
-
-## Architecture
-
-- **Meilisearch:** `@meilisearch/instant-meilisearch`
-- **OpenSearch:** custom InstantSearch client in [`src/lib/opensearch/instantSearchClient.ts`](src/lib/opensearch/instantSearchClient.ts) (Elasticsearch `_search` + aggregations)
-
-## Security
-
-- Never put Meilisearch **master** key in `VITE_*` variables.
-- OpenSearch credentials in the browser are for demos only; use read-only users or a backend proxy in production.
-
-## Data
-
-- `movies.json` — base TMDB dataset
-- `movies-enriched.json` — generated (ratings, regions, languages)
-- IMDb `title.*.tsv` — local only, not committed
+- `src/components/SmartSearchBox.tsx` decides when Meilisearch and NLP run
+- `src/lib/nlp/` turns a query into filters
+- `nlp_api/server.py` is the GLiNER service
+- `scripts/seed-meilisearch.mjs` writes the index
+- `Dockerfile` and `docker/entrypoint.sh` build the single image
+- `deploy/nginx/catalog-search.conf` is the host site template (`__SEARCH_DOMAIN__`, `__APP_PORT__`)
+- `AGENT_HANDOFF.md` is the list of production failures and the rules that keep them fixed

@@ -10,7 +10,7 @@ const input =
 const output =
   process.argv[3] ||
   process.env.CATALOG_JSON_PATH ||
-  resolve(process.cwd(), "marwadihub-data.json");
+  resolve(process.cwd(), "catalog-data.json");
 
 async function main() {
   const raw = await readFile(input, "utf8");
